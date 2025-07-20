@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import AdminDashboard from './AdminDashboard';
 import FarmerDashboard from './FarmerDashboard';
 import UserDashboard from './UserDashboard';
+import Registration from './Registration';
 
 function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
-  const [showEcommerceStore, setShowEcommerceStore] = useState(false);
+  const [showRegistration, setShowRegistration] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -55,6 +56,11 @@ function App() {
     // For regular users, show the UserDashboard component directly (full e-commerce functionality)
     return <UserDashboard user={user} onLogout={handleLogout} />;
 
+  }
+
+  // If showing registration page
+  if (showRegistration) {
+    return <Registration onBackToLogin={() => setShowRegistration(false)} />;
   }
 
   // Login page
@@ -211,6 +217,38 @@ function App() {
             }}
           >
             <strong>User:</strong> user@efarm.com / user123
+          </button>
+        </div>
+
+        {/* Registration Section */}
+        <div style={{
+          marginTop: '30px',
+          paddingTop: '20px',
+          borderTop: '1px solid #e5e7eb',
+          textAlign: 'center'
+        }}>
+          <p style={{ margin: '0 0 12px 0', color: '#6b7280', fontSize: '14px' }}>
+            Don't have an account?
+          </p>
+          <button
+            type="button"
+            onClick={() => setShowRegistration(true)}
+            style={{
+              width: '100%',
+              padding: '12px 16px',
+              backgroundColor: '#16a34a',
+              color: 'white',
+              border: 'none',
+              borderRadius: '6px',
+              fontSize: '16px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseOver={(e) => e.target.style.backgroundColor = '#15803d'}
+            onMouseOut={(e) => e.target.style.backgroundColor = '#16a34a'}
+          >
+            🌾 Create New Account
           </button>
         </div>
       </div>
